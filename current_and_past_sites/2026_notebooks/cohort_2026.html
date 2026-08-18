@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Astrophysics Graduate Roster</title>
+    <style>
+        /* ---------- Global ---------------------------------------- */
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #1a1a2e; /* deep‑space dark */
+            color: #ececec;
+            text-align: center;
+        }
+
+        /* ---------- Wrapper (center + side margins) -------------- */
+        .wrapper {
+            max-width: 1200px; /* maximum width of the whole page */
+            margin: auto; /* horizontal centering */
+            padding: 0 1rem; /* small gutter on each side */
+        }
+
+        /* ---------- Header --------------------------------------- */
+        header {
+            padding: 2rem 0 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.4em;
+            color: #ff8c00; /* orange accent */
+        }
+
+        p.tagline {
+            margin-top: .3rem;
+            font-size: 1.1em;
+            color: #a9a9a9;
+        }
+
+        /* ---------- Group photo ----------------------------------- */
+        .group-photo {
+            max-width: 90%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+            margin-top: 1.5rem;
+        }
+
+        /* ---------- Grid of student cards ------------------------ */
+        .grid {
+            display: grid;
+            gap: 1.75rem;
+            padding: 2rem 0;
+            /* maximum 4 columns; they’ll shrink on smaller screens   */
+            grid-template-columns: repeat(4, minmax(220px, 1fr));
+        }
+
+        /* ---------- Individual card ------------------------------ */
+        .card {
+            background: #0b1121;
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 1.35em;
+            color: #ff8c00;
+        }
+
+        /* ---------- Link styles (optional) ----------------------- */
+        a {
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        /* Hover effect for cards if they are links  */
+        .card:hover {
+            transform: scale(1.02);
+            transition: .15s;
+        }
+
+        /* ---------- Responsive tweaks ----------------------------- */
+        /* Reduce the number of columns as the viewport narrows   */
+        @media (max-width: 1200px) {
+            .grid {
+                grid-template-columns: repeat(3, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 500px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: .8rem .5rem;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <header>
+        <h1>Astrophysics Graduate Roster</h1>
+        <p class="tagline">Meet the next generation of space‑science pioneers.</p>
+    </header>
+
+    <!-- ------------- Group photo -------------------------------- -->
+    <img src="group.jpg" alt="Group Photo" class="group-photo"/>
+
+    <!-- ------------- Grid of student cards ---------------------- -->
+    <div class="grid">
+        <!-- Replace each block with real data. -->
+        <div class="card"><h2>Alice Smith</h2></div>
+        <div class="card"><h2>Bob Johnson</h2></div>
+        <div class="card"><h2>Carol Lee</h2></div>
+        <div class="card"><h2>David Kim</h2></div>
+        <div class="card"><h2>Eve Patel</h2></div>
+        <div class="card"><h2>Frank Wang</h2></div>
+        <div class="card"><h2>Grace Chen</h2></div>
+    </div>
+</div>
+</body>
+</html>
