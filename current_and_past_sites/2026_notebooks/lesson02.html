@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Git and Github</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h1 id="Git-Version-Control">Git Version Control<a class="anchor-link" href="#Git-Version-Control">&#182;</a>
+                </h1>
+                <p><a href="https://git-scm.com/install/">Git</a></p>
+                <ul>
+                    <li>Tracks changes you make over time so you can see the full history and revert mistakes.</li>
+                    <li>Lets you create separate “branches” to work on without ruining your primary content that you can
+                        then merge back when ready.
+                    </li>
+                    <li>Repositories contain the whole project. You can work offline and sync later.</li>
+                    <li>Git != Github</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Post-Install">Post-Install<a class="anchor-link" href="#Post-Install">&#182;</a></h2>
+                <p>First verify that git is installed and note which version you are using:</p>
+
+                <pre><code>$ which git
+$ git --version</code></pre>
+                <p>Git has its own configuration that it uses as you work. To view the current config:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>config<span
+                        class="w"> </span>--list
+</pre>
+                </div>
+                <p>There are global and local settings. Global is used everywhere, but values can be overridden by the
+                    local configuration:</p>
+
+                <pre><code>$ git config --list --global
+$ git config --list --local</code></pre>
+                <p>To set a value, use the name of the configuration and the new value. For example, to set your
+                    identity across all your work:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>config<span
+                        class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span
+                        class="s2">&quot;Jane Doe&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span
+                            class="w"> </span>johndoe@example.com
+</pre>
+                </div>
+                <p>If you are working on a project that requires a different email, you could do:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>config<span
+                        class="w"> </span>--local<span class="w"> </span>user.name<span class="w"> </span><span
+                        class="s2">&quot;John Deer&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--local<span class="w"> </span>user.email<span
+                            class="w"> </span>johndeer@otherexample.com
+</pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Creating-a-Repository">Creating a Repository<a class="anchor-link"
+                                                                       href="#Creating-a-Repository">&#182;</a></h2>
+                <p>With Git configured, let's create a repository!</p>
+                <p>Create a directory in your home folder named <code>planets</code> and <code>cd</code> into that
+                    directory:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span
+                        class="w"> </span>~
+$<span class="w"> </span>mkdir<span class="w"> </span>planets
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>planets
+</pre>
+                </div>
+                <p>Next, make the <code>planets</code> directory a Git repository:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>init
+</pre>
+                </div>
+                <p><strong>Note:</strong> A git repository includes all the subdirectories and all the files in those
+                    subdirectories. There is no need to create separate repositories nested within the
+                    <code>planets</code> repository.</p>
+                <p>Run <code>ls</code> to verify that a folder named <code>.git</code> now exists in your
+                    <code>planets</code> directory. If you don't see it, try adding the <code>-a</code> (all) flag to
+                    your command. e.g. <code>ls -a</code></p>
+                <p>Git uses this special subdirectory to keep track of all your changes to all files and sub-directories
+                    located within the project. If you don't want this directory to be seen as a Git repository, you can
+                    simply delete the <code>.git</code> directory.</p>
+                <p><strong>Warning:</strong> Depending on how you delete the folder, this action may not be recoverable.
+                </p>
+                <p>We can check that everything is set up correctly by asking Git to tell us the status of our
+                    project:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>status
+</pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Making-Changes">Making Changes<a class="anchor-link" href="#Making-Changes">&#182;</a></h2>
+                <p>In your <code>planets</code> repository, create a file named <code>mars.txt</code> and add some notes
+                    and comments about the Red Planet using vim (neo or classic)</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>vim<span class="w"> </span>mars.txt
+</pre>
+                </div>
+                <p>Save the file, exit vim, and check the status of your repository. Git should tell us that it’s
+                    noticed the new file:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>status
+</pre>
+                </div>
+                <p>Your output should read something like:</p>
+                <div class="highlight"><pre><span></span>On<span class="w"> </span>branch<span class="w"> </span>main
+
+No<span class="w"> </span>commits<span class="w"> </span>yet
+
+Untracked<span class="w"> </span>files:
+<span class="w">   </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add &lt;file&gt;...&quot;</span><span
+                            class="w"> </span>to<span class="w"> </span>include<span class="w"> </span><span class="k">in</span><span
+                            class="w"> </span>what<span class="w"> </span>will<span class="w"> </span>be<span
+                            class="w"> </span>committed<span class="o">)</span>
+<span class="w">    </span>mars.txt
+
+nothing<span class="w"> </span>added<span class="w"> </span>to<span class="w"> </span>commit<span
+                            class="w"> </span>but<span class="w"> </span>untracked<span class="w"> </span>files<span
+                            class="w"> </span>present<span class="w"> </span><span class="o">(</span>use<span
+                            class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>to<span
+                            class="w"> </span>track<span class="o">)</span>
+</pre>
+                </div>
+                <p>The “untracked files” message means that there’s a file in the directory that Git isn’t keeping track
+                    of. We can tell Git to track a file using <code>git add</code>:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>add<span
+                        class="w"> </span>mars.txt
+</pre>
+                </div>
+                <p>Then, let's check that this new file is accounted for:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>status
+</pre>
+                </div>
+                <p>and you should now see something like:</p>
+                <div class="highlight"><pre><span></span>On<span class="w"> </span>branch<span class="w"> </span>main
+
+No<span class="w"> </span>commits<span class="w"> </span>yet
+
+Changes<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>committed:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git rm --cached &lt;file&gt;...&quot;</span><span
+                            class="w"> </span>to<span class="w"> </span>unstage<span class="o">)</span>
+
+<span class="w">    </span>new<span class="w"> </span>file:<span class="w">   </span>mars.txt
+</pre>
+                </div>
+                <p>Git now knows that it’s supposed to keep track of <code>mars.txt</code>, but it hasn’t recorded these
+                    changes as a commit yet. To get it to do that, we need to run one more command:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>commit<span
+                        class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Added information about mars&quot;</span>
+</pre>
+                </div>
+                <p>Output should read something like:</p>
+                <div class="highlight"><pre><span></span><span class="o">[</span>main<span class="w"> </span><span
+                        class="o">(</span>root-commit<span class="o">)</span><span class="w"> </span>de5825f<span
+                        class="o">]</span><span class="w"> </span>Added<span class="w"> </span>information<span
+                        class="w"> </span>about<span class="w"> </span>mars
+<span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span
+                            class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span
+                            class="o">(</span>+<span class="o">)</span>
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span
+                            class="w"> </span>mars.txt
+</pre>
+                </div>
+                <p><strong>Note:</strong> We use the <code>-m</code> flag (for “message”) to record a short,
+                    descriptive, and specific comment that will help us remember later on what we did and why. If we run
+                    <code>git commit</code> without the <code>-m</code> option, Git will launch your default text editor
+                    so that we can write a longer message. Generally, we want to keep commits short and sweet, less than
+                    50 characters: ex: "Fixed typos in functions.py". Capture the work, not the minutia.</p>
+                <p>When we run git commit, Git takes everything we have told it to track and saves the delta or changes
+                    inside the special <code>.git</code> directory. This permanent copy is called a <a href="#glossary">commit
+                        (or revision)</a> and it is giving a hashed identifier i.e. <code>de5825f</code>. Your
+                    identifier may vary.</p>
+                <p>After making our commit, <code>git status</code> should now show something similar to:</p>
+                <div class="highlight"><pre><span></span>On<span class="w"> </span>branch<span class="w"> </span>main
+nothing<span class="w"> </span>to<span class="w"> </span>commit,<span class="w"> </span>working<span class="w"> </span>directory<span
+                            class="w"> </span>clean
+</pre>
+                </div>
+                <p>This tells us that everything is up to date. To see our recent changes, we can check the log:</p>
+                <div class="highlight"><pre><span></span>commit<span class="w"> </span>de5825f9f36eab3dccc1f849c9fd8cf3607c7d5a<span
+                        class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span
+                        class="w"> </span>main<span class="o">)</span>
+Author:<span class="w"> </span>Stryder<span class="w"> </span>&lt;stryder@strangedreams.com&gt;
+Date:<span class="w">   </span>Tue<span class="w"> </span>Aug<span class="w"> </span><span class="m">18</span><span
+                            class="w"> </span><span class="m">00</span>:00:17<span class="w"> </span><span class="m">2026</span><span
+                            class="w"> </span>-0400
+
+<span class="w">    </span>Added<span class="w"> </span>information<span class="w"> </span>about<span class="w"> </span>mars
+</pre>
+                </div>
+                <p>Let's open <code>mars.txt</code> again and add some new information about Mar's moons:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>vim<span class="w"> </span>mars.txt
+</pre>
+                </div>
+                <p>Running <code>git status</code> now should show us git knows that <code>mars.txt</code> has been
+                    modified:</p>
+                <div class="highlight"><pre><span></span>On<span class="w"> </span>branch<span class="w"> </span>main
+Changes<span class="w"> </span>not<span class="w"> </span>staged<span class="w"> </span><span class="k">for</span><span
+                            class="w"> </span>commit:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add &lt;file&gt;...&quot;</span><span
+                            class="w"> </span>to<span class="w"> </span>update<span class="w"> </span>what<span
+                            class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>committed<span
+                            class="o">)</span>
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git restore &lt;file&gt;...&quot;</span><span
+                            class="w"> </span>to<span class="w"> </span>discard<span class="w"> </span>changes<span
+                            class="w"> </span><span class="k">in</span><span class="w"> </span>working<span
+                            class="w"> </span>directory<span class="o">)</span>
+<span class="w">        </span>modified:<span class="w">   </span>mars.txt
+
+no<span class="w"> </span>changes<span class="w"> </span>added<span class="w"> </span>to<span
+                            class="w"> </span>commit<span class="w"> </span><span class="o">(</span>use<span
+                            class="w"> </span><span class="s2">&quot;git add&quot;</span><span
+                            class="w"> </span>and/or<span class="w"> </span><span
+                            class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
+</pre>
+                </div>
+                <p>The last line is the key phrase: <code>“no changes added to commit”</code>. We have changed this
+                    file, but we haven’t told Git we will want to track those changes (which we do with <code>git
+                        add</code>) nor have we saved them (which we do with <code>git commit</code>). So let’s do that
+                    now. It is good practice to always review our changes before saving them. We do this using <code>git
+                        diff</code>. This shows us the differences between the current state of the file and the most
+                    recently saved version:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>diff
+</pre>
+                </div>
+                <p>Output:</p>
+                <div class="highlight"><pre><span></span>diff<span class="w"> </span>--git<span class="w"> </span>a/mars.txt<span
+                        class="w"> </span>b/mars.txt
+index<span class="w"> </span>de5825f..315bf3a<span class="w"> </span><span class="m">100644</span>
+---<span class="w"> </span>a/mars.txt
++++<span class="w"> </span>b/mars.txt
+@@<span class="w"> </span>-1<span class="w"> </span>+1,2<span class="w"> </span>@@
+Cold<span class="w"> </span>and<span class="w"> </span>dry,<span class="w"> </span>but<span class="w"> </span>everything<span
+                            class="w"> </span>is<span class="w"> </span>my<span class="w"> </span>favorite<span
+                            class="w"> </span>color.
+The<span class="w"> </span>two<span class="w"> </span>moons<span class="w"> </span>may<span class="w"> </span>be<span
+                            class="w"> </span>a<span class="w"> </span>problem<span class="w"> </span><span class="k">for</span><span
+                            class="w"> </span>the<span class="w"> </span>Mickey<span class="w"> </span>Mousoids...
+</pre>
+                </div>
+                <p>The output is cryptic because it is actually a series of commands that we can break down into
+                    pieces:</p>
+                <ol>
+                    <li>The first line tells us that Git is producing output similar to the Unix diff command comparing
+                        the old and new versions of the file.
+                    </li>
+                    <li>The second line tells exactly which versions of the file Git is comparing; df0654a and 315bf3a
+                        are unique computer-generated labels for those versions.
+                    </li>
+                    <li>The third and fourth lines once again show the name of the file being changed.</li>
+                    <li>The remaining lines are the most interesting, they show us the actual differences and the lines
+                        on which they occur. In particular, the + marker in the first column shows where we added a
+                        line.
+                    </li>
+                </ol>
+                <p>After reviewing our changes, it’s time to commit them:</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>add<span
+                        class="w"> </span>mars.txt
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span
+                            class="s2">&quot;Added information about Mar&#39;s moons&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>status
+</pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Github">Github<a class="anchor-link" href="#Github">&#182;</a></h2>
+                <p><a href="http://github.com">Github</a></p>
+                <p>Git is the tool, Github is the server.
+                    With a GitHub account, you can host <strong>public</strong> and <strong>private</strong>
+                    repositories where can store and share your code and data.</p>
+                <p>Github offers a <strong>Student Pack</strong> for free (<a href="https://education.github.com/">https://education.github.com/</a>)
+                    with your <strong>@login.cuny.edu</strong> email address.</p>
+                <p>You'll likely not have CUNY student emails (or IDs) just yet so for now, you can sign up for a
+                    regular Github account at <a href="https://github.com/signup">https://github.com/signup</a></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="SSH-(Secure-SHell)">SSH (Secure SHell)<a class="anchor-link"
+                                                                 href="#SSH-(Secure-SHell)">&#182;</a></h2>
+                <ul>
+                    <li>Secure protocol that provides secure communication between two computers using keys.</li>
+                    <li>Asymmetric encryption uses two keys: one public and one private</li>
+                    <li>The private key is kept on your local machine and <strong>must</strong> remain confidential</li>
+                    <li>The public key is shared with servers or people that you want to be able to verify you</li>
+                </ul>
+                <p>During SSH connection, the client proves its identity via private key through a challenge‑response
+                    process. The challenger sends a packet with a special message encrypted with the public key that can
+                    only be decrypted with the private key. The challenged computer then decrypts the message, and sends
+                    it back encrypted with the challengers public key, that only the challenge can decode with its
+                    private key, thus establishing each client's identity.</p>
+                <ul>
+                    <li>SSH keys <em>must be unique</em>.</li>
+                    <li><strong>ONE PER MACHINE PER IDENTITY</strong></li>
+                    <li><strong>DO NOT RE-USE KEYS</strong></li>
+                    <li><strong>DO NOT SHARE PRIVATE KEYS</strong></li>
+                    <li>## DO NOT SHARE PRIVATE KEYS</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="SSH-Setup">SSH Setup<a class="anchor-link" href="#SSH-Setup">&#182;</a></h2>
+                <p>To setup an SSH identity, first check if any existing SSH keys already exist.</p>
+                <div class="highlight"><pre><span></span>ls<span class="w"> </span>~/.ssh
+</pre>
+                </div>
+                <p>If you see a pair of files, one without a prefix and one ending with <em><code>.pub</code></em>, that
+                    indicates a key pair. For example, you might see
+                    <em><code>id_ed25519</code></em> and <em><code>id_ed25519.pub</code></em>.</p>
+                <p>If these files exist in your ~/.ssh folder, you can jump to the <a href="#AddSSH">Adding SSH key</a>
+                    to your GitHub account section of this tutorial.</p>
+                <p>If you do not have any SSH key pairs or need to generate new one:</p>
+                <ol>
+                    <li>In your terminal, run <code>ssh-keygen -t ed25519 -C "youremail@example.org"</code></li>
+                </ol>
+                <p>Expected output:</p>
+
+                <pre><code>Generating public/private ed25519 key pair.
+Enter file in which to save the key (/pathto/user/home/.ssh/id_ed25519)</code></pre>
+                <p>(The path in parenthesis is the default. Accept it unless you have specific alternate
+                    instructions.)</p>
+                <p>Next, you will be prompted for a passphrase. Going forward, this is the passphrase you will use when
+                    you have to authenticate this identity. If you don't enter a passphrase and just hit enter, you will
+                    not be asked for a password going forward. This password is <strong>not</strong> recoverable!</p>
+
+                <pre><code>&gt; Enter passphrase (empty for no passphrase): [Type a passphrase]
+&gt; Enter same passphrase again: [Type passphrase again]</code></pre>
+                <p>You should then see an output similar to this:</p>
+
+                <pre><code>Your identification has been saved in /home/daxfeliz/.ssh/id_ed25519
+Your public key has been saved in /home/daxfeliz/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:AuErG+8I8YUkRbNn1iNiGB/T3P6p4oWtmHA821i3bPO dfeliz@amnh.org
+The key's randomart image is:
++--[ED25519 256]--+
+|    ..o.o        |
+|.o . o o o       |
+|o O o . o .    . |
+|.* * o . .  . o  |
+|*++ + . S  . E   |
+|**oo   .    . .  |
+|*++.    .    o   |
+|o=o.     . .o.   |
+|+o.       ..o..  |
++----[SHA256]-----+</code></pre>
+                <p>Congratulations! Your key has been created!</p>
+                <h2 id="Adding-the-SSH-key-to-the-ssh-agent-process">Adding the SSH key to the ssh-agent process<a
+                        class="anchor-link" href="#Adding-the-SSH-key-to-the-ssh-agent-process">&#182;</a></h2>
+                <p>If you are on Linux, you will need to add the generated key to a process called
+                    <code>ssh-agent</code>.</p>
+                <div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span
+                        class="s2">&quot;</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span
+                        class="k">)</span><span class="s2">&quot;</span>
+ssh-add<span class="w"> </span>~/.ssh/id_ed25519
+</pre>
+                </div>
+                <p>On MacOS, you can add your ssh key to the apple key chain:</p>
+                <div class="highlight"><pre><span></span>ssh-add<span class="w"> </span>--apple-use-keychain<span
+                        class="w"> </span>~/.ssh/id_ed25519
+</pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Github-and-SSH">Github and SSH<a class="anchor-link" href="#Github-and-SSH">&#182;</a></h2>
+                <p>Github now requires SSH to interact programmatically with your repositories, so we have to let Github
+                    know what our machines public key is.</p>
+                <h3 id="Adding-SSH-keys-to-your-GitHub-account">Adding SSH keys to your GitHub account<a
+                        class="anchor-link" href="#Adding-SSH-keys-to-your-GitHub-account">&#182;</a></h3>
+                <ul>
+                    <li>Login to GitHub</li>
+                    <li>Click on your profile in upper right corner and select <strong>Settings</strong></li>
+                    <li>On the left sidebar, click on <strong>SSH and GPG keys</strong>.</li>
+                    <li>Click on <strong>New SSH key</strong>.</li>
+                    <li>Assign a Title for this key. This is just a label for you to remember which machine this key is
+                        associated with.
+                    </li>
+                    <li>Paste the key from the <code>.pub</code> file that was created when you generated your .ssh key
+                    </li>
+                    <li>Click <strong>Add SSH key</strong>. You might be prompted to type your GitHub password.</li>
+                </ul>
+                <p>Next, you can test your connection from your Bash environment.</p>
+                <p>In your Terminal, type the following exactly:</p>
+                <div class="highlight"><pre><span></span>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
+</pre>
+                </div>
+                <p>You might see a similar warning as follows (including the public key as shown below):</p>
+
+                <pre><code>The authenticity of host 'github.com (140.82.114.3)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?</code></pre>
+                <p>Type <strong><code>yes</code></strong> to continue.</p>
+                <p>The next warning should list your account name:</p>
+
+                <pre><code>Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
+Hi &lt;name&gt;! You've successfully authenticated, but GitHub does not provide shell access.</code></pre>
+                <p>Voila! Your identity key is added and we can now push our work up to Github!</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Using-Github">Using Github<a class="anchor-link" href="#Using-Github">&#182;</a></h2>
+                <p>Github <em>is not Git</em>. Github is a site that hosts repositories so that they can be shared with
+                    other users.</p>
+                <p>Let's add our <code>planets</code> repository to our Github account!</p>
+                <ol>
+                    <li>Open <a href="https://github.com">Github</a> and login if you need to.</li>
+                    <li>Select 'Repositories' from the menu across the top or click on your profile and select
+                        'Repositories'
+                    </li>
+                    <li>Click 'New'</li>
+                    <li>Fill out the form (info below)</li>
+                    <li>Click 'Create Repository'</li>
+                </ol>
+                <p><strong>Repository Form Fields</strong></p>
+                <ul>
+                    <li><em>Repository Name:</em> Used to identify your repo in urls etc...Usually the same as your
+                        project name
+                    </li>
+                    <li><em>Description:</em> A brief summary of your project for other users (and you)</li>
+                    <li><em>Visibility:</em> Who can see/access your repository</li>
+                    <li><em>Add README:</em> A markdown file that will be used for your repository landing page on
+                        github.com
+                    </li>
+                    <li><em>Add .gitignore:</em> A file in your repository that git uses to automatically 'ignore'
+                        certain files and folders
+                    </li>
+                    <li><em>Add license:</em> A markdown file that you can use to provide licensing information about
+                        your project/data
+                    </li>
+                </ul>
+                <p>Now that your new repository on github has been created, we can connect it to our already existing
+                    repository.</p>
+                <div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>remote<span
+                        class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:&lt;username&gt;/planets.git
+$<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span
+                            class="w"> </span>main
+</pre>
+                </div>
+                <p>Refresh your repository page and review your code!</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h3 id="Exercise">Exercise<a class="anchor-link" href="#Exercise">&#182;</a></h3>
+                <p>From your local copy of the <code>planets</code> repository, add information about 3 more planets in
+                    3 different files and push them to your repository. Check the log and status as you do to see your
+                    changes and familiarize yourself more with git.</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
