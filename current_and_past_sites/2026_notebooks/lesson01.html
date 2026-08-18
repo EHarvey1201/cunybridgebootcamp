@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>01_Intro_and_Computer_Set_Up</title>
+    <style>
+        /* =========================================================
+   CUNY Bridge Bootcamp — Jupyter Notebook Styling
+   Modestly cool, professional, readable, and responsive.
+   ========================================================= */
+
+        :root {
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --surface-alt: #f8fafc;
+            --text: #263241;
+            --muted: #687586;
+            --heading: #172033;
+            --accent: #356ae6;
+            --accent-dark: #2854bd;
+            --accent-soft: #edf3ff;
+            --border: #dce3ec;
+            --code-bg: #17202b;
+            --code-text: #e7edf5;
+            --shadow: 0 8px 24px rgba(23, 32, 51, 0.06);
+            --radius: 10px;
+        }
+
+        /* ---------- Page ---------- */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body.jp-Notebook {
+            margin: 0;
+            padding: 40px 24px 80px;
+            background: radial-gradient(circle at top left, rgba(53, 106, 230, 0.06), transparent 32rem),
+            var(--bg);
+            color: var(--text);
+            font-family: Inter,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Helvetica,
+            Arial,
+            sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ---------- Notebook cells ---------- */
+
+        .jp-Notebook-cell.jp-MarkdownCell {
+            max-width: 920px;
+            margin: 0 auto 22px;
+        }
+
+        .jp-Cell-inputWrapper,
+        .jp-InputArea,
+        .jp-RenderedHTMLCommon.jp-RenderedMarkdown {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .jp-RenderedHTMLCommon.jp-RenderedMarkdown {
+            padding: 30px 36px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* ---------- Typography ---------- */
+
+        .jp-RenderedMarkdown h1,
+        .jp-RenderedMarkdown h2,
+        .jp-RenderedMarkdown h3,
+        .jp-RenderedMarkdown h4 {
+            color: var(--heading);
+            line-height: 1.25;
+            letter-spacing: -0.025em;
+        }
+
+        .jp-RenderedMarkdown h1 {
+            margin: 0 0 22px;
+            padding-bottom: 14px;
+            font-size: 2rem;
+            font-weight: 750;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .jp-RenderedMarkdown h2 {
+            margin: 34px 0 16px;
+            font-size: 1.45rem;
+            font-weight: 700;
+        }
+
+        .jp-RenderedMarkdown h3 {
+            margin: 28px 0 12px;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .jp-RenderedMarkdown h4 {
+            margin: 24px 0 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: none;
+        }
+
+        .jp-RenderedMarkdown p {
+            margin: 0 0 18px;
+        }
+
+        .jp-RenderedMarkdown strong {
+            color: #1d2939;
+            font-weight: 700;
+        }
+
+        .jp-RenderedMarkdown em {
+            color: #445266;
+        }
+
+        .jp-RenderedMarkdown a {
+            color: var(--accent);
+            font-weight: 550;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            transition: color 150ms ease,
+            background-color 150ms ease;
+        }
+
+        .jp-RenderedMarkdown a:hover {
+            color: var(--accent-dark);
+        }
+
+        /* ---------- Heading anchors ---------- */
+
+        .jp-RenderedMarkdown .anchor-link {
+            margin-left: 8px;
+            color: #a3afbf;
+            font-size: 0.7em;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 150ms ease, color 150ms ease;
+        }
+
+        .jp-RenderedMarkdown h1:hover .anchor-link,
+        .jp-RenderedMarkdown h2:hover .anchor-link,
+        .jp-RenderedMarkdown h3:hover .anchor-link,
+        .jp-RenderedMarkdown h4:hover .anchor-link {
+            opacity: 1;
+        }
+
+        .jp-RenderedMarkdown .anchor-link:hover {
+            color: var(--accent);
+        }
+
+        /* ---------- Lists ---------- */
+
+        .jp-RenderedMarkdown ul,
+        .jp-RenderedMarkdown ol {
+            margin: 0 0 20px;
+            padding-left: 28px;
+        }
+
+        .jp-RenderedMarkdown li {
+            margin: 7px 0;
+            padding-left: 3px;
+        }
+
+        .jp-RenderedMarkdown li > ul,
+        .jp-RenderedMarkdown li > ol {
+            margin-top: 7px;
+            margin-bottom: 8px;
+        }
+
+        .jp-RenderedMarkdown li::marker {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ---------- Inline code ---------- */
+
+        .jp-RenderedMarkdown code {
+            padding: 0.18em 0.42em;
+            border: 1px solid #dce4ee;
+            border-radius: 5px;
+            background: #f1f4f8;
+            color: #263f69;
+            font-family: "SFMono-Regular",
+            Consolas,
+            "Liberation Mono",
+            Menlo,
+            monospace;
+            font-size: 0.88em;
+            white-space: nowrap;
+        }
+
+        /* ---------- Code blocks ---------- */
+
+        .jp-RenderedMarkdown .highlight {
+            margin: 22px 0;
+            overflow-x: auto;
+            border: 1px solid #263545;
+            border-radius: 9px;
+            background: var(--code-bg);
+            box-shadow: 0 5px 18px rgba(23, 32, 51, 0.12);
+        }
+
+        .jp-RenderedMarkdown .highlight pre {
+            margin: 0;
+            padding: 18px 20px;
+            color: var(--code-text);
+            background: transparent;
+            font-family: "SFMono-Regular",
+            Consolas,
+            "Liberation Mono",
+            Menlo,
+            monospace;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            tab-size: 4;
+        }
+
+        /* Keep syntax-highlighted spans from inheriting inline-code styling */
+        .jp-RenderedMarkdown .highlight code,
+        .jp-RenderedMarkdown .highlight span {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: inherit;
+        }
+
+        /* ---------- Exercises / callouts ---------- */
+
+        .jp-RenderedMarkdown blockquote {
+            margin: 26px 0;
+            padding: 18px 22px;
+            border: 1px solid #d8e3fa;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            background: var(--accent-soft);
+            color: #334155;
+        }
+
+        .jp-RenderedMarkdown blockquote p:last-child,
+        .jp-RenderedMarkdown blockquote ol:last-child,
+        .jp-RenderedMarkdown blockquote ul:last-child {
+            margin-bottom: 0;
+        }
+
+        .jp-RenderedMarkdown blockquote strong {
+            color: var(--accent-dark);
+        }
+
+        /* ---------- First section gets a slightly stronger treatment ---------- */
+
+        .jp-Notebook-cell:first-of-type .jp-RenderedMarkdown {
+            padding-top: 38px;
+            border-top: 4px solid var(--accent);
+        }
+
+        .jp-Notebook-cell:first-of-type .jp-RenderedMarkdown h1 {
+            font-size: 2.25rem;
+        }
+
+        /* ---------- Major section dividers ---------- */
+
+        .jp-RenderedMarkdown h1:not(:first-child) {
+            margin-top: 36px;
+        }
+
+        .jp-RenderedMarkdown h2 + p,
+        .jp-RenderedMarkdown h2 + ul,
+        .jp-RenderedMarkdown h2 + ol {
+            margin-top: 4px;
+        }
+
+        /* ---------- Subtle emphasis for command-oriented list items ---------- */
+
+        .jp-RenderedMarkdown li code {
+            font-size: 0.86em;
+        }
+
+        /* ---------- Remove Jupyter-specific visual clutter ---------- */
+
+        .jp-InputPrompt,
+        .jp-Collapser,
+        .jp-InputCollapser,
+        .jp-Cell-inputCollapser {
+            display: none;
+        }
+
+        .jp-Cell-inputWrapper {
+            border: 0;
+        }
+
+        /* ---------- Selection ---------- */
+
+        .jp-RenderedMarkdown ::selection {
+            background: #cfe0ff;
+            color: #172033;
+        }
+
+        /* ---------- Focus/accessibility ---------- */
+
+        .jp-RenderedMarkdown a:focus-visible {
+            outline: 3px solid rgba(53, 106, 230, 0.3);
+            outline-offset: 3px;
+            border-radius: 3px;
+        }
+
+        /* ---------- Responsive ---------- */
+
+        @media (max-width: 700px) {
+            body.jp-Notebook {
+                padding: 18px 12px 50px;
+                font-size: 15px;
+            }
+
+            .jp-Notebook-cell.jp-MarkdownCell {
+                margin-bottom: 14px;
+            }
+
+            .jp-RenderedHTMLCommon.jp-RenderedMarkdown {
+                padding: 22px 20px;
+                border-radius: 8px;
+            }
+
+            .jp-RenderedMarkdown h1,
+            .jp-Notebook-cell:first-of-type .jp-RenderedMarkdown h1 {
+                font-size: 1.7rem;
+            }
+
+            .jp-RenderedMarkdown h2 {
+                font-size: 1.3rem;
+            }
+
+            .jp-RenderedMarkdown h3 {
+                font-size: 1.1rem;
+            }
+
+            .jp-RenderedMarkdown ul,
+            .jp-RenderedMarkdown ol {
+                padding-left: 23px;
+            }
+
+            .jp-RenderedMarkdown .highlight pre {
+                padding: 15px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ---------- Reduced motion ---------- */
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .jp-RenderedMarkdown a,
+            .jp-RenderedMarkdown .anchor-link {
+                transition: none;
+            }
+        }
+    </style>
+
+</head>
+<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h1 id="First-Session,-Notebook-%23-1:-Introduction-and-Computer-Set-Up">Introduction and Computer Set
+                    Up<a class="anchor-link"
+                         href="#First-Session,-Notebook-%23-1:-Introduction-and-Computer-Set-Up">&#182;</a>
+                </h1>
+                <h2 id="Today's-agenda:">Today's agenda:<a class="anchor-link" href="#Today's-agenda:">&#182;</a></h2>
+                <ol>
+                    <li><p><strong>Workshop Overview</strong>:</p>
+                        <ul>
+                            <li><strong>When</strong>: August 17th, 2-5pm</li>
+                            <li><strong>Where</strong>: CUNY Graduate Center <!---*insert room number---></li>
+                            <li><strong>What</strong>: Most days we'll be working on a new topic (or topics) in coding
+                            </li>
+                            <li><strong>Want</strong> to lead a session for a topic? Some Days there will be small hack
+                                sessions for people to discuss problems they're working on.
+                            </li>
+                            <li><strong>Online Resources</strong>:
+                                <strong><a href="https://daxfeliz.github.io/cunybridgebootcamp/">https://daxfeliz.github.io/cunybridgebootcamp/</a></strong>
+                            </li>
+                            <li><strong>Program Schedule</strong>: <a
+                                    href="http://https://docs.google.com/document/d/1NmAingHU1cxXDbTskqAUtdqGvl1vm3xsJeNqb4MUMq4"><strong>Bootcamp
+                                Schedule</strong></a>
+                                &lt;/br&gt;
+                                &nbsp;
+                            </li>
+                        </ul>
+                    </li>
+                    <li><p><strong>This session</strong>:</p>
+                        <ul>
+                            <li>Workshop Overview</li>
+                            <li>Who am I, Who are you, Why Are We Here?</li>
+                            <li>Your Terminal and other basic info</li>
+                            <li>Environment Setup
+                                &lt;/br&gt;
+                                &nbsp;
+                            </li>
+                        </ul>
+                    </li>
+                    <li><p><strong>Next session</strong>:</p>
+                        <ul>
+                            <li>GitHub practice! <strong>Make sure you bring your laptop to this session and future
+                                sessions</strong>.
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h1 id="The-Terminal">The Terminal<a class="anchor-link" href="#The-Terminal">&#182;</a></h1>
+                <p>A Terminal Emulator or 'Command Line' is an application that lets you issue commands directly to your
+                    computer.
+                    On new computers, it's just called 'Terminal' or 'Command Prompt' and can found from your
+                    Application or Start Menu.
+                    The Terminal program that comes with your computer by default is usually pretty barebones, but you
+                    can download and
+                    install other emulators that offer additional functionality like session management and integrated
+                    graphics.</p>
+                <p>It's highly recommended to pin your preferred Terminal Emulator somewhere since you'll likely be
+                    using it a lot.</p>
+                <h2 id="Basics">Basics<a class="anchor-link" href="#Basics">&#182;</a></h2>
+                <p>Your Terminal uses a <em>Shell</em> to interpret the commands you enter and displays the results.
+                    They come in many varieties, but a
+                    few of the most common you'll come across are <a href="https://www.gnu.org/software/bash/">Bash</a>,
+                    <a href="https://www.zsh.org/">Zsh</a>("Zee-Shell"), and <a href="https://fishshell.com/">Fsh</a>("Fish").
+                    Of these, Bash is default on most Linux systems and Zsh is the default on OSX. Sounds like a lot,
+                    but good news: They all work almost exactly the same. Shell commands all have the same basic format:
+                    the command name followed by a list of parameters, flags, or arguments.</p>
+                <blockquote><p><strong>Exercise:</strong></p>
+                    <ol>
+                        <li>Open your terminal now and execute the command <code>pwd</code>, what do you see?</li>
+                        <li>Now execute the command <code>ls</code>, what do you see?</li>
+                        <li>Run <code>touch foo.txt</code> and then <code>ls</code> again, what changed?</li>
+                    </ol>
+                </blockquote>
+                <p>The <code>pwd</code> command stands for "Present Working Directory" and it shows you the current
+                    directory your shell is working in.
+                    <code>ls</code> is short for "list" and it will show you the contents of the current directory. The
+                    <code>touch</code> command will create an empty file with the name you provided.</p>
+                <p>Other basic commands you should know:</p>
+                <ul>
+                    <li><code>mkdir &lt;directory_name&gt;</code> - makes a directory with the given name</li>
+                    <li><code>cd &lt;directory_name&gt;</code> - used to <em>change</em> your current directory</li>
+                    <li><code>rm &lt;file_name&gt;</code> - <em>removes</em> or deletes a file</li>
+                    <li><code>rmdir &lt;directory_name&gt;</code> - <em>removes</em> or deletes a directory</li>
+                    <li><code>mv &lt;file1&gt; &lt;file2&gt;</code> - <em>moves</em> <code>file1</code> to
+                        <code>file2</code>.
+                    </li>
+                    <li><code>cp &lt;file1&gt; &lt;file2&gt;</code> - <em>copies</em> <code>file1</code> to
+                        <code>file2</code>.
+                    </li>
+                    <li><code>open &lt;file1&gt;</code> - <em>opens</em> the target file with the default application
+                    </li>
+                    <li><code>which &lt;command&gt;</code> - tells you <em>which</em> command will be run</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Terminal-Exercise"><strong>Terminal Exercise</strong><a class="anchor-link"
+                                                                                href="#Terminal-Exercise">&#182;</a>
+                </h2>
+                <p>Open your terminal, run the following commands and then use <code>ls</code> to see what's changed.
+                </p>
+                <ol>
+                    <li><code>mkdir foo</code></li>
+                    <li><code>rmdir foo</code></li>
+                    <li><code>mkdir foo bar baz</code></li>
+                    <li><code>cd foo</code></li>
+                    <li><code>pwd</code></li>
+                    <li><code>mkdir spam/eggs/ham</code></li>
+                    <li><code>mkdir -p spam/eggs/ham</code></li>
+                    <li><code>ls spam</code></li>
+                    <li><code>touch spam/fried.txt</code></li>
+                    <li><code>rmdir spam</code></li>
+                    <li><code>rmdir -r spam</code></li>
+                </ol>
+                <p>Shell Commands all follow the same format: A command name followed by a series of <em>flags</em>,
+                    <em>options</em>, or <em>parameters</em>. These arguments can change or modify behavior in someway.
+                    <code>ls</code> for example works using the current directory by default, but you can also pass the
+                    name of a directory. <code>mkdir</code> similarly works in the current directory. If you pass
+                    multiple names, it will create each of those directories. If you try to create nested directories,
+                    it will fail unless you pass the <code>-p</code> (parents) argument since those child directories
+                    don't exist. <code>rmdir</code> won't work on directories with content unless you use the
+                    <code>-r</code> (recursive) argument.</p>
+                <p>To learn more about the various arguments and parameters a command uses, you can always try to pass
+                    the <code>--help</code> flag or use the <code>man</code> command followed by the name of the command
+                    you want to learn about. e.g. <code>man mkdir</code></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="About-Paths,-Filenames,-and-Extensions">About Paths, Filenames, and Extensions<a
+                        class="anchor-link" href="#About-Paths,-Filenames,-and-Extensions">&#182;</a></h2>
+                <p>A path is a series of names separated by forward slashes (<code>/</code>) that tell the computer
+                    where something is. On Linux and MacOS (<em>nix systems), a slash on its own represents the </em>root<em>
+                        directory of your file system. On Windows, the root is <code>c:\</code>. </em>nix and Windows
+                    disagree on how exactly a path should be expressed. Windows is generally <strong>not</strong> case
+                    sensitive, but <em>nix systems are. This means that where Windows would see <code>my_data.txt</code>
+                        and <code>My_Data.txt</code> as the same file, on </em>nix, they would be two disctinct files.
+                </p>
+                <p>The <code>cd</code> command supports a few special targets:</p>
+                <ul>
+                    <li><code>~</code> - takes you back to your <em>home</em> directory</li>
+                    <li><code>..</code> - moves you 'up' on directory</li>
+                    <li><code>.</code> - references the current directory you're in</li>
+                </ul>
+                <p>Extensions are the 'dot something' suffix you see on a file, like <code>.txt</code>,
+                    <code>.pdf</code> or <code>.jpg</code>. These are just hints to help you and the computer identify
+                    what type of content <em>should</em> be in the file. Your computer uses the extension to pick which
+                    application to use to open it. You can give a file any extension you want and there are a myriad of
+                    them out there.</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h4 id="Extra-Credit"><strong>Extra Credit</strong><a class="anchor-link"
+                                                                      href="#Extra-Credit">&#182;</a></h4>
+                <p>Try out an alternate terminal emulator, like <a href="https://ghostty.org">Ghostty</a>,
+                    <a href="https://iterm2.com/">iTerm2</a>, or <a href="https://alacritty.org/">Alacritty</a>. There's
+                    a big list <a href="https://github.com/cdleon/awesome-terminals">here</a> with many more options.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h4 id="Extra-Extra-Credit"><strong>Extra Extra Credit</strong><a class="anchor-link"
+                                                                                  href="#Extra-Extra-Credit">&#182;</a>
+                </h4>
+                <p>Plugins also exist that can supercharge your shell with new commands, fancy layouts, colors, and
+                    other features that uncomplicate life. <a href="https://ohmyz.sh">oh-my-zsh</a> and <a
+                            href="https://catppuccin.com">Catppuccin</a> are two very popular ones, Give them a try!</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Brew-(MacOS)">Brew (MacOS)<a class="anchor-link" href="#Brew-(MacOS)">&#182;</a></h2>
+                <ul>
+                    <li><a href="https://brew.sh">Brew</a></li>
+                    <li>Package manager that lets you install, update, and manage software from the command line.</li>
+                    <li>Example: <code>brew install &lt;package&gt;</code> pulla in everything from Git to Node.js, and
+                        handles dependencies automatically.
+                    </li>
+                    <li>Keeps installed packages isolated from system files, making upgrades safe and your environment
+                        reproducible.
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h1 id="Stuff-to-Install!">Stuff to Install!<a class="anchor-link" href="#Stuff-to-Install!">&#182;</a>
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Connect-and-Chat">Connect and Chat<a class="anchor-link" href="#Connect-and-Chat">&#182;</a>
+                </h2>
+                <p><a href="https://slack.com/downloads">Slack</a></p>
+                <p>We will be using Slack to communicate ideas, resources, changes to the schedule, etc.</p>
+                <ul>
+                    <li><strong>Email address</strong>: You can use any email address. You just need to sign up to get
+                        an invite.
+                    </li>
+                    <li><strong>Slack Channel</strong>: <a
+                            href="https://join.slack.com/t/cunybridgepro-as48674/shared_invite/zt-1cfvx2qdy-EymvUOdQnUEMirdPbNr9fA">CUNY
+                        Bridge Programming Bootcamp</a></li>
+                    <li><strong>Team Name</strong>: cunybridgebootcamp</li>
+                    <li><strong>Slack App</strong>: You can download the Slack app for your computer/phone</li>
+                </ul>
+                <p>Slack is a platform to facilitate communication among team members.</p>
+                <ul>
+                    <li>One can easily share documents!</li>
+                    <li>Talk to each member of the group</li>
+                    <li><em>Replaces</em> the need of emails</li>
+                    <li>And more!</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h2>
+                <p><a href="https://python.org">Homepage</a></p>
+                <ul>
+                    <li>High‑level, interpreted programming language, platform agnostic (runs on everything, mostly)
+                    </li>
+                    <li>Used in web apps, data science, automation scripts, and so much more.</li>
+                </ul>
+                <h3 id="Python-Environment-and-Dependency-Management">Python Environment and Dependency Management<a
+                        class="anchor-link" href="#Python-Environment-and-Dependency-Management">&#182;</a></h3>
+                <p>When Python interprets your code, it does so in an environment context. These tools help you create
+                    isolated sandboxes that prevent library conflicts.</p>
+                <ul>
+                    <li><a href="https://docs.astral.sh/uv/getting-started/installation/#standalone-installer">UV</a>
+                        Super best, IMHO
+                    </li>
+                    <li><a href="https://github.com/conda-forge/miniforge/">miniforge</a> Common in Astro community</li>
+                    <li><a href="https://github.com/pyenv/pyenv">pyenv</a> + <a
+                            href="https://python-poetry.org">poetry</a> + <a
+                            href="https://pipx.pypa.io/latest/index.html">pipx</a> Old school approach
+                    </li>
+                    <li><a href="https://www.anaconda.com/">Anaconda</a> See note below</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Jupyter-Notebooks">Jupyter Notebooks<a class="anchor-link" href="#Jupyter-Notebooks">&#182;</a>
+                </h2>
+                <p><a href="https://jupyter.org/install">JupyterLab</a></p>
+                <ul>
+                    <li>Web‑based document that let you mix code, plain text, and visual outputs in one file.</li>
+                    <li>Content expressed in cells that you can individually, see the result instantly, tweak the code,
+                        and then re‑run.
+                    </li>
+                    <li>Lets you keep all your data, plots, and comments together. Widely used for teaching, research,
+                        and sharing reproducible workflows.
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Version-Control">Version Control<a class="anchor-link" href="#Version-Control">&#182;</a></h2>
+                <p><a href="https://git-scm.com/install/">Git</a></p>
+                <ul>
+                    <li>Tracks changes you make over time so you can see the full history and revert mistakes.</li>
+                    <li>Lets you create separate “branches” to work on without ruining your primary content that you can
+                        then merge back when ready.
+                    </li>
+                    <li>Repositories contain the whole project. You can work offline and sync later.</li>
+                    <li>Git != Github</li>
+                </ul>
+                <p>Once installed, you can view all of your settings and where they are coming from using:</p>
+                <div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--list<span
+                        class="w"> </span>--show-origin
+</pre>
+                </div>
+                <p>To set your Identity:</p>
+                <div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span
+                        class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;John Doe&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span
+                            class="w"> </span>johndoe@example.com
+</pre>
+                </div>
+                <p><a href="http://github.com">Github</a></p>
+                <p>Git is the tool, Github is the server.
+                    With a GitHub account, you can host <strong>public</strong> and <strong>private</strong>
+                    repositories where can store and share your code and data.</p>
+                <p>Github offers a <strong>Student Pack</strong> for free (<a href="https://education.github.com/">https://education.github.com/</a>)
+                    with your <strong>@login.cuny.edu</strong> email address.</p>
+                <p>You'll likely not have CUNY student emails (or IDs) just yet so for now, you can sign up for a
+                    regular Github account at <a href="https://github.com/signup">https://github.com/signup</a></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <blockquote><p><strong>Extra Credit:</strong> Try out an alternate terminal emulator, like <a
+                        href="https://ghostty.org">Ghostty</a>,
+                    <a href="https://iterm2.com/">iTerm2</a>, and <a href="https://alacritty.org/">Alacritty</a>.</p>
+                    <p><strong>Extra Extra Credit:</strong> Plugins exist that can supercharge your shell with new
+                        commands, fancy layouts and colors
+                        and features that uncomplicate life. <a href="https://ohmyz.sh">oh-my-zsh</a> and <a href="">Catppuccin</a>
+                        are two very popular ones.
+                        Give them a try!</p>
+                </blockquote>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Editing-Files-In-Your-Terminal">Editing Files In Your Terminal<a class="anchor-link"
+                                                                                         href="#Editing-Files-In-Your-Terminal">&#182;</a>
+                </h2>
+                <p><a href="https://neovim.io">Neovim</a></p>
+                <ul>
+                    <li>Fork of the classic Vim editor. Same editor, more module, bit cleaner.</li>
+                    <li>Add async support, Lua scripting, a modern plugin API, and simplified extension development.
+                    </li>
+                    <li>Barebones text editor or robust IDE. Your pick.</li>
+                    <li>Recommended Plugin: <a href="https://github.com/AstroNvim/AstroNvim">AstroVim</a></li>
+                </ul>
+                <p>Once installed, you can launch neovim from the terminal by typing <code>nvim</code> (may require you
+                    to restart your terminal)</p>
+                <p>Vim has two basic modes: <em>Normal</em> and <em>Insert</em>. There are other modes that we'll cover
+                    indepth later.</p>
+                <p>Typical Workflow:</p>
+                <ul>
+                    <li><code>nvim &lt;file&gt;</code> will open that file for editing</li>
+                    <li>To make edits, press <code>"i"</code> once to enter <em>insert mode</em>.</li>
+                    <li>Press <code>"esc"</code> to exit insert mode and go into <em>normal mode</em></li>
+                    <li>Type <code>:</code> in normal mode to go to command mode.</li>
+                    <li>Type <code>:w</code> to <em>write</em> your changes and <code>:q</code> to <em>quit</em>.</li>
+                    <li>Commands can be combined. i.e. <code>:wq</code> will <em>write</em> and then <em>quit</em>.</li>
+                    <li>Use <code>!</code> to force a command. i.e. <code>:q!</code>.</li>
+                    <li>To overwrite the file and force quit to exit the vim text editor in one step, type in
+                        <code>:wq!</code></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="IDE-(Integrated-Development-Enviroment)">IDE (Integrated Development Enviroment)<a
+                        class="anchor-link" href="#IDE-(Integrated-Development-Enviroment)">&#182;</a></h2>
+                <ul>
+                    <li>Single application that bundles code editing, building, debugging, and even version control into
+                        one app
+                    </li>
+                    <li>Provides syntax‑highlighting, autocompletion, a compiler or interpreter launcher, and a debug
+                        tools.
+                    </li>
+                    <li>Unified interface makes writing, testing, and running your code more efficient than using
+                        separate command‑line tools.
+                    </li>
+                </ul>
+                <p><strong>Options</strong>:</p>
+                <ul>
+                    <li><a href="https://code.visualstudio.com/download">VSCode</a> - All the rage with the kids</li>
+                    <li><a href="https://vscodium.com">VSCodium</a> - De-Microsoft'd VSCode</li>
+                    <li><a href="https://www.jetbrains.com/pycharm/">PyCharm</a> - The Professional's Choice</li>
+                </ul>
+                <p><strong>Non-Options</strong> (You're gonna have a bad time):</p>
+                <ul>
+                    <li>Eclipse, JGrasp, Netbeans, Visual Studio...</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h1 id="Bonus-Material">Bonus Material<a class="anchor-link" href="#Bonus-Material">&#182;</a></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h2 id="Editing-your-shell-environment">Editing your shell environment<a class="anchor-link"
+                                                                                         href="#Editing-your-shell-environment">&#182;</a>
+                </h2>
+                <p>When you login to your computer and start up your shell, it gets information about its environment
+                    and commands from a 'run-command' file. By convention, this file lives in your <em>home
+                        directory</em> and is named <code>.&lt;shell&gt;rc</code>. So if you are using a <em>bash</em>
+                    shell, you'll have a <code>.bashrc</code> file and a <code>.zshrc</code> file if you're using zsh.
+                </p>
+                <ol>
+                    <li>Open your terminal</li>
+                    <li>Type <code>ls -a</code>. Tye <code>-a</code> shows <em>all</em> files. Files and directories
+                        that start with a <code>.</code> are <em>hidden</em> by default.
+                    </li>
+                    <li>Identify your rc file and open it with your terminal text editor</li>
+                </ol>
+                <p>The rc file is a useful way to customize your environment and tell your shell where it can find other
+                    commands, For example, you could <code>alias</code> vi to always launch neovim by adding the
+                    following line:</p>
+                <p><code>alias vi=nvim</code></p>
+                <p>Write that to the bottom of your rc file, save it, exit and then run
+                    <code>source .&lt;shell&gt;rc</code>. (<code>source</code> is a command that will read your rc file
+                    into the current shell environment)</p>
+                <p>Run <code>vi</code> again and notice how it launches neovim instead. We'll go over more commands to
+                    add in future lessons.</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper">
+        <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+        </div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+            <div class="jp-InputPrompt jp-InputArea-prompt">
+            </div>
+            <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+                <h4 id="*A-Note-About-Anaconda!">*A Note About Anaconda!<a class="anchor-link"
+                                                                           href="#*A-Note-About-Anaconda!">&#182;</a>
+                </h4>
+                <p>Anaconda is a nominally free, special distribution of Python that also acts as a package and
+                    environment manager with a focus on scientific libraries and binaries. However, in 2024, Anaconda
+                    clarified its Terms of Service so that organizations with $\ge$ 200 employees or contractors must
+                    buy a paid Business license to use Anaconda’s repositories (the default “defaults” channel many
+                    conda installs use); this threshold applies to companies, governments, and non-profits, with
+                    separate carve-outs for accredited educational use (like universities) in course curricula.
+                    Practically, if your conda/Miniconda setup downloads from Anaconda’s repos inside a large
+                    organization, you’re expected to pay—or switch to a community source like conda-forge via Miniforge.
+                    More details about the changes in licensing can be found <a
+                            href="https://www.datacamp.com/blog/navigating-anaconda-licensing"><strong>here</strong></a>.
+                </p>
+                <p>To address this, institutions like Flatiron Institute Center for Computational Astrophysics (a
+                    non-profit organization) implemented a firewall blocking downloads from conda's default channel. You
+                    can use default <code>conda</code> as a package manager but you'll have to download packages from
+                    conda-forge if using conda while at CCA.</p>
+                <p>Miniforge, mentioned above, is a mini-installer of anaconda and defaults to installing packages from
+                    the (free!) community-based conda-forge channel and is organization independent: university vs
+                    non-profit.</p>
+                <p>Should you want to use conda now or in the future, you can always use the instructions found in <a
+                        href="docs/anaconda.md">anaconda.md</a>.</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
